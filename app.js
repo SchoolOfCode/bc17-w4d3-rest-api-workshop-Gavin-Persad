@@ -145,4 +145,24 @@ app.patch('/astronauts/:id', async (req, res) => {
 	}
 });
 
+// Bonus Task
+
+/* Write the request handler to perform the action and return the data from the function getAstronautsByName. Have this handler
+listen to requests at the appropriate path. */
+
+app.get('/astronauts/search/:name', async (req, res) => {
+	try {
+		const astronauts = await getAstronautsByName(req.params.name);
+		res.json({
+			success: true,
+			payload: astronauts,
+		});
+	} catch (error) {
+		res.status(500).json({
+			success: false,
+			payload: `Error: ${error.message}`,
+		});
+	}
+});
+
 export default app;
